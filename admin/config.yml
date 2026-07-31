@@ -5,7 +5,7 @@
 # ===================================================================
 backend:
   name: github
-  repo: SEU-USUARIO/SEU-REPOSITORIO
+  repo: braidomarcos/braido-lab-3d
   branch: main
 
 media_folder: "images/uploads"
