@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Braido Lab 3D — Peças impressas sob encomenda</title>
+<meta name="description" content="Braido Lab 3D: protótipos, peças técnicas, acessórios e personalizados, impressos em 3D sob encomenda.">
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!--
+  ===================================================================
+  GUIA RÁPIDO DE EDIÇÃO — procure estes marcadores (Ctrl+F) e troque:
+  [SEU-NOME]        -> seu nome ou o da sua marca pessoal
+  [ANO]               -> ano que começou a Braido Lab 3D
+  R$ —                 -> preços reais de cada categoria do catálogo
+  href="#" (rodapé/flutuante) -> troque pelos links reais de WhatsApp/Instagram/e-mail
+  Os blocos ilustrados dos cards -> troque por fotos reais das SUAS peças
+  quando tiver (fotos de celular já bastam — ver nota abaixo).
+
+  IMPORTANTE SOBRE AS FOTOS DOS MODELOS DO MAKERWORLD:
+  Não usei as fotos/arquivos dos links que você mandou. A maioria (conferi
+  vários) está sob "Standard Digital File License" do MakerWorld, que proíbe
+  vender ou lucrar com a peça impressa sem autorização do criador. Por isso
+  troquei por ilustrações originais por categoria — assim que você tiver
+  fotos das SUAS impressões, é só substituir os blocos ".cat-visual" e
+  ".port-visual" pelas tags <img>.
+
+  O formulário de orçamento já funciona sozinho (Netlify Forms) assim que
+  publicado — não precisa de backend.
+  ===================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #0B0D11;
+    --bg-elevated: #15181F;
+    --bg-elevated-2: #1B1F28;
+    --blue: #2E5BFF;
+    --blue-bright: #6E92FF;
+    --blue-deep: #12224F;
+    --blue-soft: #182347;
+    --amber: #FFB238;
+    --white: #F5F7FB;
+    --muted: #949CB0;
+    --muted-dim: #6B7386;
+    --line: rgba(244,246,250,0.09);
+    --rivet: rgba(244,246,250,0.16);
+    --radius: 8px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--white);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  h1,h2,h3{
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.1;
+    margin:0;
+  }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; margin:0; padding:0; }
+  img,svg{ display:block; max-width:100%; }
+  button, input, select, textarea{ font-family:inherit; font-size:1rem; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline: 2px solid var(--blue-bright);
+    outline-offset: 3px;
+  }
+
+  .wrap{ max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+
+  .eyebrow{
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.8125rem;
+    letter-spacing: 0.04em;
+    color: var(--blue-bright);
+    margin-bottom: 14px;
+  }
+  .eyebrow::before{ content:""; width:16px; height:1px; background: var(--blue-bright); }
+
+  .mono{ font-family:'JetBrains Mono', monospace; }
+
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{ opacity:0; transform: translateY(26px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in{ opacity:1; transform: translateY(0); }
+
+  /* ---------- Plate signature: cantos rebitados, como a placa da logo ---------- */
+  .plate{
+    position: relative;
+    background-color: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background-image:
+      radial-gradient(circle, var(--rivet) 1.6px, transparent 2px),
+      radial-gradient(circle, var(--rivet) 1.6px, transparent 2px),
+      radial-gradient(circle, var(--rivet) 1.6px, transparent 2px),
+      radial-gradient(circle, var(--rivet) 1.6px, transparent 2px);
+    background-repeat: no-repeat;
+    background-position:
+      10px 10px, calc(100% - 10px) 10px,
+      10px calc(100% - 10px), calc(100% - 10px) calc(100% - 10px);
+  }
+
+  /* ---------- Header ---------- */
+  .site-header{
+    position: sticky; top:0; z-index: 60;
+    background: rgba(11,13,17,0.82);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding: 14px 0; }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand-word{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:1.15rem; }
+  .brand-word span{
+    display:block; font-family:'JetBrains Mono', monospace; font-weight:500;
+    font-size: 0.65rem; letter-spacing: 0.18em; color: var(--blue-bright); margin-top: 1px;
+  }
+  .brand-logo-img{ height:40px; width:auto; display:block; }
+  .brand-logo-img-sm{ height:28px; }
+  .nav-links{ display:flex; align-items:center; gap: 30px; }
+  .nav-links a{ font-size: 0.92rem; color: var(--muted); transition: color .2s ease; }
+  .nav-links a:hover{ color: var(--white); }
+  .nav-cta{
+    background: var(--blue); color: var(--white) !important; padding: 9px 18px;
+    border-radius: 4px; font-weight:500; font-size: 0.88rem !important;
+    box-shadow: 0 0 0 0 rgba(46,91,255,0.5);
+  }
+  .nav-cta:hover{ background: var(--blue-bright); }
+  .nav-toggle{ display:none; background:none; border:1px solid var(--line); border-radius:4px; padding:8px 10px; color: var(--white); }
+
+  @media (max-width: 760px){
+    .nav-links{
+      position: fixed; top: 61px; left:0; right:0; background: var(--bg-elevated);
+      border-bottom:1px solid var(--line); flex-direction:column; align-items:flex-start;
+      padding: 20px 24px 28px; gap: 20px; transform: translateY(-110%); transition: transform .25s ease;
+    }
+    .nav-links.open{ transform: translateY(0); }
+    .nav-toggle{ display:block; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{ position:relative; padding: 108px 0 88px; border-bottom: 1px solid var(--line); overflow:hidden; }
+  .hero::before{
+    content:""; position:absolute; top:-220px; right:-160px; width:620px; height:620px; border-radius:50%;
+    background: radial-gradient(circle, rgba(46,91,255,0.28), transparent 70%);
+    filter: blur(10px); pointer-events:none;
+  }
+  .hero-grid{ position:relative; display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items:center; }
+  .hero h1{ font-size: clamp(2.3rem, 4.6vw, 3.6rem); font-weight:700; letter-spacing:-0.01em; }
+  .hero h1 .line{ display:block; overflow:hidden; }
+  .hero h1 .line span{ display:block; transform: translateY(110%); opacity:0; animation: rise .7s cubic-bezier(.2,.8,.2,1) forwards; }
+  .hero h1 .line:nth-child(1) span{ animation-delay: .15s; }
+  .hero h1 .line:nth-child(2) span{ animation-delay: .32s; color: var(--blue-bright); }
+  @keyframes rise{ to{ transform: translateY(0); opacity:1; } }
+
+  .hero p.lead{ margin-top: 22px; max-width: 46ch; color: var(--muted); font-size: 1.06rem; }
+  .hero-actions{ margin-top: 32px; display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding: 13px 22px; border-radius: 5px;
+    font-weight:500; font-size:0.95rem; border:1px solid transparent; cursor:pointer; transition: all .2s ease;
+  }
+  .btn-primary{ background: var(--blue); color:var(--white); }
+  .btn-primary:hover{ background: var(--blue-bright); transform: translateY(-1px); }
+  .btn-ghost{ border-color: var(--line); color: var(--white); background:transparent; }
+  .btn-ghost:hover{ border-color: var(--blue-bright); color: var(--blue-bright); }
+
+  .trust-row{ margin-top: 38px; display:flex; align-items:center; gap: 18px; flex-wrap:wrap; }
+  .stars{ color: var(--amber); font-size: 0.95rem; letter-spacing: 2px; }
+  .trust-row .sep{ width:1px; height:16px; background: var(--line); }
+  .trust-row span.txt{ font-size: 0.86rem; color: var(--muted); }
+
+  .hero-visual{ position:relative; aspect-ratio: 1/1; display:flex; align-items:center; justify-content:center; padding: 28px; }
+  .print-line{ width:100%; height:auto; }
+  .draw-path{
+    fill:none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round;
+    stroke-dasharray: 900; stroke-dashoffset: 900;
+    animation: draw 2.6s 0.3s cubic-bezier(.3,.7,.2,1) forwards;
+  }
+  .draw-grid{ stroke: var(--line); stroke-width:1; }
+  .nozzle-group{ animation: moveNozzle 2.6s 0.3s cubic-bezier(.3,.7,.2,1) forwards; }
+  @keyframes draw{ to{ stroke-dashoffset: 0; } }
+  @keyframes moveNozzle{ 0%{ transform: translate(28px, 30px); } 100%{ transform: translate(228px, 210px); } }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero h1 .line span{ animation:none; transform:none; opacity:1; }
+    .draw-path{ animation:none; stroke-dashoffset:0; }
+    .nozzle-group{ animation:none; transform: translate(228px,210px); }
+    .reveal{ opacity:1; transform:none; }
+  }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .hero-visual{ order:-1; max-width: 260px; margin: 0 auto; }
+  }
+
+  /* ---------- Faixa de valor ---------- */
+  .value-strip{ padding: 40px 0; border-bottom: 1px solid var(--line); background: var(--bg-elevated); }
+  .value-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
+  .value-item{ display:flex; gap:12px; align-items:flex-start; }
+  .value-item svg{ flex-shrink:0; width:22px; height:22px; color: var(--blue-bright); margin-top:2px; }
+  .value-item h4{ font-size: 0.92rem; font-weight:600; margin-bottom:3px; }
+  .value-item p{ font-size: 0.82rem; color: var(--muted); }
+  @media (max-width: 860px){ .value-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .value-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Marketplaces em destaque ---------- */
+  .marketplaces{ padding: 60px 0; border-bottom: 1px solid var(--line); }
+  .marketplaces .section-head{ margin-bottom: 32px; }
+  .mkt-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .mkt-card{
+    display:flex; flex-direction:column; justify-content:space-between; gap: 22px;
+    padding: 24px 22px; transition: transform .2s ease, border-color .2s ease;
+  }
+  .mkt-card:hover{ transform: translateY(-4px); border-color: rgba(46,91,255,0.45); }
+  .mkt-card .mkt-name{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size: 1.15rem; }
+  .mkt-card .mkt-sub{ font-family:'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+  .mkt-card .mkt-go{
+    display:flex; align-items:center; justify-content:space-between; font-size: 0.85rem; color: var(--blue-bright);
+  }
+  .mkt-card .mkt-go svg{ width:16px; height:16px; transition: transform .2s ease; }
+  .mkt-card:hover .mkt-go svg{ transform: translateX(3px); }
+  @media (max-width: 860px){ .mkt-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 520px){ .mkt-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Sections genéricas ---------- */
+  .section{ padding: 90px 0; border-bottom: 1px solid var(--line); }
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; gap: 24px; margin-bottom: 46px; flex-wrap:wrap; }
+  .section-head h2{ font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .section-head p{ color: var(--muted); max-width: 42ch; }
+
+  /* ---------- Catálogo ---------- */
+  .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card{
+    padding: 0; display:flex; flex-direction:column; overflow:hidden;
+    transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  .card:hover{ border-color: rgba(46,91,255,0.45); transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.35); }
+  .cat-visual{
+    aspect-ratio: 4/3; position:relative; overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cat-visual svg{ width:52%; height:52%; position:relative; z-index:2; transition: transform .3s ease; }
+  .cat-visual img{ width:100%; height:100%; object-fit:cover; position:relative; z-index:1; transition: transform .3s ease; }
+  .card:hover .cat-visual img{ transform: scale(1.05); }
+  .card:hover .cat-visual svg{ transform: scale(1.06); }
+  .cat-visual .tag{
+    position:absolute; top:12px; left:12px; z-index:3;
+    font-family:'JetBrains Mono', monospace; font-size:0.66rem; letter-spacing:.03em;
+    background: rgba(11,13,17,0.7); border:1px solid var(--line); color: var(--muted);
+    padding: 4px 9px; border-radius: 3px;
+  }
+  .cat-visual .badge{
+    position:absolute; top:12px; right:12px; z-index:3;
+    font-family:'JetBrains Mono', monospace; font-size:0.66rem; font-weight:500;
+    background: var(--amber); color:#1a1200; padding: 4px 9px; border-radius: 3px;
+  }
+  .card-body{ padding: 20px 22px 22px; display:flex; flex-direction:column; gap: 12px; flex-grow:1; }
+  .card h3{ font-size: 1.05rem; font-weight:700; }
+  .card p.desc{ color: var(--muted); font-size: 0.9rem; flex-grow:1; }
+  .card-foot{ display:flex; justify-content:space-between; align-items:center; margin-top: 2px; }
+  .price{ font-family:'JetBrains Mono', monospace; font-size:0.85rem; color: var(--blue-bright); }
+  .card-link{ font-size: 0.86rem; color: var(--white); border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .card-link:hover{ border-color: var(--blue-bright); color: var(--blue-bright); }
+
+  /* paletas de gradiente por categoria (repete o azul da marca, varia o mood) */
+  .g1{ background: linear-gradient(155deg, #17264F 0%, #0E1320 70%); }
+  .g2{ background: linear-gradient(155deg, #24184F 0%, #12111F 70%); }
+  .g3{ background: linear-gradient(155deg, #0F2A3A 0%, #0D141C 70%); }
+  .g4{ background: linear-gradient(155deg, #2A2013 0%, #14110C 70%); }
+  .g5{ background: linear-gradient(155deg, #131F2C 0%, #0B1218 70%); }
+  .g6{ background: linear-gradient(155deg, #1C1430 0%, #100C1A 70%); }
+
+  /* ---------- Portfólio ---------- */
+  .grid-portfolio{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .port-item{ overflow:hidden; }
+  .port-visual{ aspect-ratio: 1/1; position:relative; display:flex; align-items:center; justify-content:center; }
+  .port-visual svg{ width:46%; height:46%; }
+  .port-visual img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .3s ease; }
+  .port-item:hover .port-visual img{ transform: scale(1.05); }
+  .port-item .port-info{ padding: 14px 16px 18px; }
+  .port-item .port-tag{
+    display:block; font-family:'JetBrains Mono', monospace; font-size: 0.68rem;
+    letter-spacing:0.04em; color: var(--blue-bright); margin-bottom:4px;
+  }
+  .port-item .port-cap{ color: var(--muted); font-size: 0.86rem; }
+
+  @media (max-width: 860px){ .grid-3, .grid-portfolio{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width: 560px){ .grid-3, .grid-portfolio{ grid-template-columns: 1fr; } }
+
+  /* ---------- Avaliações e comentários (reais) ---------- */
+  .reviews-box{ padding: 54px 46px; text-align:center; position:relative; overflow:hidden; }
+  .reviews-box::before{
+    content:""; position:absolute; top:-140px; left:50%; transform:translateX(-50%); width:480px; height:480px; border-radius:50%;
+    background: radial-gradient(circle, rgba(46,91,255,0.22), transparent 70%); pointer-events:none;
+  }
+  .reviews-inner{ position:relative; max-width: 640px; margin:0 auto; }
+  .reviews-box h2{ font-size: clamp(1.6rem, 3vw, 2.1rem); margin-bottom: 14px; }
+  .reviews-box p{ color: var(--muted); font-size: 1rem; }
+  .google-badge{
+    display:inline-flex; align-items:center; gap:12px; margin-top: 26px; padding: 14px 22px;
+    border:1px solid var(--line); border-radius: 6px; background: var(--bg-elevated-2);
+  }
+  .google-badge .stars{ font-size: 1rem; }
+  .google-badge .g-count{ font-family:'JetBrains Mono', monospace; font-size:0.8rem; color: var(--muted); }
+  .google-badge a{ font-size: 0.86rem; color: var(--blue-bright); border-bottom: 1px solid var(--blue-bright); padding-bottom: 1px; }
+  .comments-wrap{ margin-top: 46px; text-align:left; }
+  .comments-wrap .eyebrow{ justify-content:center; margin-bottom: 8px; }
+  .comments-hint{ text-align:center; color: var(--muted-dim); font-size:0.8rem; margin-bottom: 20px; }
+
+  /* ---------- Sobre ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items:start; }
+  .about-grid p{ color: var(--muted); margin-bottom: 16px; }
+  .about-grid p:last-child{ margin-bottom:0; }
+  .nameplate{ padding: 26px; }
+  .nameplate .eyebrow{ margin-bottom: 18px; }
+  .nameplate-row{ display:flex; justify-content:space-between; padding: 11px 0; border-top: 1px solid var(--line); font-size: 0.88rem; }
+  .nameplate-row:first-of-type{ border-top:none; }
+  .nameplate-row dt{ color: var(--muted); }
+  .nameplate-row dd{ margin:0; font-family:'JetBrains Mono', monospace; font-size: 0.82rem; }
+
+  .contact-row{ margin-top: 28px; display:flex; gap: 12px; flex-wrap:wrap; }
+  .contact-chip{
+    display:flex; align-items:center; gap:8px; padding: 10px 16px; border: 1px solid var(--line);
+    border-radius: 4px; font-size: 0.88rem; transition: border-color .2s ease, color .2s ease;
+  }
+  .contact-chip:hover{ border-color: var(--blue-bright); color: var(--blue-bright); }
+  .contact-chip svg{ width:16px; height:16px; }
+
+  @media (max-width: 860px){ .about-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Orçamento (form) ---------- */
+  .quote-box{ padding: 38px; max-width: 720px; margin: 0 auto; }
+  .form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+  .form-field{ display:flex; flex-direction:column; gap:7px; }
+  .form-field.full{ grid-column: 1 / -1; }
+  .form-field label{ font-size: 0.85rem; color: var(--muted); }
+  .form-field input, .form-field select, .form-field textarea{
+    background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 11px 13px; color: var(--white);
+  }
+  .form-field textarea{ resize: vertical; min-height: 96px; }
+  .form-note{ grid-column: 1/-1; font-size: 0.8rem; color: var(--muted); }
+  .form-submit{ grid-column: 1/-1; }
+  .form-success{ display:none; margin-top: 18px; padding: 14px 16px; border: 1px solid rgba(46,91,255,0.4); background: var(--blue-soft); border-radius: 4px; font-size: 0.9rem; }
+  .form-success.show{ display:block; }
+  @media (max-width: 620px){ .form-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Footer ---------- */
+  .site-footer{ padding: 46px 0; }
+  .footer-grid{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap: 20px; }
+  .footer-links{ display:flex; gap: 22px; }
+  .footer-links a{ color: var(--muted); font-size: 0.86rem; }
+  .footer-links a:hover{ color: var(--white); }
+  .footer-sign{ font-family:'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--muted); margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); line-height: 1.8; }
+  .footer-social{ display:flex; gap: 14px; align-items:center; }
+  .footer-social a{
+    display:flex; align-items:center; justify-content:center; width:34px; height:34px;
+    border:1px solid var(--line); border-radius:50%; color: var(--muted); transition: all .2s ease;
+  }
+  .footer-social a:hover{ border-color: var(--blue-bright); color: var(--blue-bright); }
+  .footer-social svg{ width:16px; height:16px; }
+  .footer-marketplaces{
+    display:flex; align-items:center; gap: 16px; flex-wrap:wrap; margin-top: 22px; padding-top: 18px;
+    border-top: 1px solid var(--line); font-size: 0.82rem; color: var(--muted-dim);
+  }
+  .footer-marketplaces a{ color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 1px; }
+  .footer-marketplaces a:hover{ color: var(--blue-bright); border-color: var(--blue-bright); }
+
+  /* ---------- Botão flutuante ---------- */
+  .float-cta{
+    position: fixed; right: 22px; bottom: 22px; z-index: 70;
+    width: 56px; height:56px; border-radius: 50%; background: var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 8px 24px rgba(46,91,255,0.45);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .float-cta svg{ width:26px; height:26px; color:#fff; }
+  .float-cta:hover{ background: var(--blue-bright); }
+  @keyframes pulse{
+    0%, 100%{ box-shadow: 0 8px 24px rgba(46,91,255,0.45); }
+    50%{ box-shadow: 0 8px 30px rgba(46,91,255,0.75); }
+  }
+  @media (prefers-reduced-motion: reduce){ .float-cta{ animation:none; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <div class="brand">
+      <img src="images/logo-full.png" alt="Braido Lab 3D" class="brand-logo-img">
+    </div>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#onde-comprar">Onde comprar</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#orcamento" class="nav-cta">Pedir orçamento</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Abrir menu">☰</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>
+          <span class="line"><span>Sua ideia,</span></span>
+          <span class="line"><span>impressa camada por camada.</span></span>
+        </h1>
+        <p class="lead">A Braido Lab 3D transforma modelos digitais em peças reais: acessórios, decoração, protótipos e projetos personalizados — feitos sob encomenda, com acabamento cuidadoso.</p>
+        <div class="hero-actions">
+          <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+          <a href="#orcamento" class="btn btn-ghost">Pedir orçamento</a>
+        </div>
+        <div class="trust-row">
+          <span class="stars">★★★★★</span>
+          <span class="txt">avaliação dos clientes</span>
+          <div class="sep"></div>
+          <span class="txt">Envio para todo o Brasil</span>
+        </div>
+      </div>
+
+      <div class="hero-visual plate" aria-hidden="true">
+        <svg class="print-line" viewBox="0 0 260 240">
+          <g class="draw-grid">
+            <line x1="0" y1="60" x2="260" y2="60"/><line x1="0" y1="120" x2="260" y2="120"/><line x1="0" y1="180" x2="260" y2="180"/>
+            <line x1="65" y1="0" x2="65" y2="240"/><line x1="130" y1="0" x2="130" y2="240"/><line x1="195" y1="0" x2="195" y2="240"/>
+          </g>
+          <path class="draw-path" d="M28 30 L28 190 L228 190 L228 30 L128 30 L28 30 L28 110 L128 110 L228 110" />
+          <g class="nozzle-group">
+            <rect x="-8" y="-14" width="16" height="10" fill="var(--blue-bright)"/>
+            <polygon points="-4,-4 4,-4 0,6" fill="var(--blue-bright)"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAIXA DE VALOR ================= -->
+  <section class="value-strip">
+    <div class="wrap value-grid">
+      <div class="value-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg>
+        <div><h4>Feito sob encomenda</h4><p>Sem estoque parado — cada peça é impressa pra você.</p></div>
+      </div>
+      <div class="value-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+        <div><h4>Qualidade conferida</h4><p>Cada impressão é revisada antes de sair daqui.</p></div>
+      </div>
+      <div class="value-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+        <div><h4>Envio para todo o Brasil</h4><p>Postagem rápida, com rastreio, pra qualquer estado.</p></div>
+      </div>
+      <div class="value-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg>
+        <div><h4>Materiais de qualidade</h4><p>PLA, PETG e TPU — o material certo pra cada uso.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MARKETPLACES EM DESTAQUE ================= -->
+  <!-- troque os href="#" pelos links reais assim que as lojas estiverem no ar -->
+  <section class="marketplaces" id="onde-comprar">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">ONDE COMPRAR</span>
+          <h2>Encontre a Braido Lab 3D também em:</h2>
+        </div>
+        <p>Além do site, compre com a mesma qualidade nos marketplaces abaixo.</p>
+      </div>
+      <div class="mkt-grid">
+        <a href="#" target="_blank" rel="noopener" class="mkt-card plate reveal">
+          <div><div class="mkt-name">Shopee</div><div class="mkt-sub">LOJA OFICIAL</div></div>
+          <div class="mkt-go">Visitar loja <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="mkt-card plate reveal">
+          <div><div class="mkt-name">Shein</div><div class="mkt-sub">LOJA OFICIAL</div></div>
+          <div class="mkt-go">Visitar loja <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="mkt-card plate reveal">
+          <div><div class="mkt-name">TikTok Shop</div><div class="mkt-sub">LOJA OFICIAL</div></div>
+          <div class="mkt-go">Visitar loja <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+        <a href="#" target="_blank" rel="noopener" class="mkt-card plate reveal">
+          <div><div class="mkt-name">Mercado Livre</div><div class="mkt-sub">LOJA OFICIAL</div></div>
+          <div class="mkt-go">Visitar loja <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATÁLOGO ================= -->
+  <section class="section" id="catalogo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">CATALOGO</span>
+          <h2>Peças prontas para encomendar</h2>
+        </div>
+        <p>Atualizado direto pelo painel — adicione, troque ou remova itens quando quiser.</p>
+      </div>
+
+      <div class="grid-3" id="catalogo-grid">
+        <!-- preenchido automaticamente a partir de data/catalogo.json -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTFÓLIO ================= -->
+  <section class="section" id="portfolio">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">PORTFOLIO</span>
+          <h2>Trabalhos já impressos</h2>
+        </div>
+        <p>Atualizado direto pelo painel — suba a foto assim que imprimir algo novo.</p>
+      </div>
+
+      <div class="grid-portfolio" id="portfolio-grid">
+        <!-- preenchido automaticamente a partir de data/portfolio.json -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AVALIAÇÕES E COMENTÁRIOS ================= -->
+  <section class="section">
+    <div class="wrap">
+      <div class="reviews-box plate reveal">
+        <div class="reviews-inner">
+          <span class="eyebrow" style="justify-content:center;">AVALIAÇÕES</span>
+          <h2>O que dizem sobre a Braido Lab 3D</h2>
+          <p>Atendimento formal, com histórico real de peças entregues para todo o Brasil. Veja as avaliações no Google ou deixe seu comentário aqui embaixo.</p>
+
+          <!-- troque o href="#" pelo link real das avaliações do seu Google Perfil da Empresa -->
+          <div class="google-badge">
+            <span class="stars">★★★★★</span>
+            <span class="g-count">[N,N] · [XX] avaliações no Google</span>
+            <a href="#" target="_blank" rel="noopener">Ver e avaliar no Google →</a>
+          </div>
+
+          <div class="comments-wrap">
+            <span class="eyebrow">COMENTÁRIOS</span>
+            <p class="comments-hint">Deixe sua experiência com a Braido Lab 3D — o espaço abaixo é público e real.</p>
+            <!--
+              Área de comentários via Disqus (gratuito e real, sem inventar nada):
+              1. Crie uma conta grátis em disqus.com
+              2. Cadastre seu site e pegue o "shortname" (ex: braidolab3d)
+              3. Troque SEU-SHORTNAME-AQUI abaixo pelo shortname real
+            -->
+            <div id="disqus_thread"></div>
+            <script>
+              var disqus_config = function () {
+                this.page.url = window.location.href;
+                this.page.identifier = 'braido-lab-3d-home';
+              };
+              (function() {
+                var d = document, s = d.createElement('script');
+                s.src = 'https://SEU-SHORTNAME-AQUI.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              })();
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SOBRE ================= -->
+  <section class="section" id="sobre">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <span class="eyebrow">SOBRE</span>
+        <h2 style="margin-bottom:22px;">Quem faz a Braido Lab 3D</h2>
+        <p>Sou [SEU-NOME], e a Braido Lab 3D nasceu da vontade de transformar ideias em objetos reais, uma camada de cada vez. Aqui conto um pouco da minha história com impressão 3D, o que me motivou a começar e por que escolhi esse caminho.</p>
+        <p>Cada peça é preparada e acompanhada do início ao fim: da escolha do material até o acabamento final, pensando sempre na durabilidade e no acabamento de quem vai receber.</p>
+        <p>Atendo todo o Brasil, com envio rápido e rastreio para onde você estiver.</p>
+
+        <div class="contact-row">
+          <a href="#" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            WhatsApp
+          </a>
+          <a href="#" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+            Instagram
+          </a>
+          <a href="#" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+            E-mail
+          </a>
+        </div>
+      </div>
+
+      <div class="nameplate plate reveal">
+        <span class="eyebrow">FICHA TÉCNICA</span>
+        <dl style="margin:0;">
+          <div class="nameplate-row"><dt>Fundador</dt><dd>[SEU-NOME]</dd></div>
+          <div class="nameplate-row"><dt>Atendimento</dt><dd>Todo o Brasil</dd></div>
+          <div class="nameplate-row"><dt>Impressora</dt><dd>Bambu Lab A1</dd></div>
+          <div class="nameplate-row"><dt>Materiais</dt><dd>PLA / PETG / TPU</dd></div>
+          <div class="nameplate-row"><dt>Desde</dt><dd>[ANO]</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ORÇAMENTO ================= -->
+  <section class="section" id="orcamento" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="section-head reveal" style="justify-content:center; text-align:center; flex-direction:column; align-items:center;">
+        <span class="eyebrow">ORÇAMENTO</span>
+        <h2>Peça o seu orçamento</h2>
+        <p>Conte o que você precisa — respondo com prazo e valor em até 24h.</p>
+      </div>
+
+      <form class="quote-box plate reveal" name="orcamento" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="quoteForm">
+        <input type="hidden" name="form-name" value="orcamento" />
+        <p style="display:none;"><label>Não preencha isto: <input name="bot-field" /></label></p>
+
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+          <div class="form-field">
+            <label for="contato">WhatsApp ou e-mail</label>
+            <input type="text" id="contato" name="contato" required>
+          </div>
+          <div class="form-field">
+            <label for="tipo">Tipo de peça</label>
+            <select id="tipo" name="tipo">
+              <option>Peça do catálogo</option>
+              <option>Projeto personalizado</option>
+              <option>Protótipo / técnica</option>
+              <option>Não sei ainda</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="material">Material desejado</label>
+            <select id="material" name="material">
+              <option>PLA</option>
+              <option>PETG</option>
+              <option>TPU (flexível)</option>
+              <option>Sem preferência</option>
+            </select>
+          </div>
+          <div class="form-field full">
+            <label for="detalhes">Detalhes do pedido</label>
+            <textarea id="detalhes" name="detalhes" placeholder="Descreva a peça, tamanho aproximado, quantidade, referência ou link do modelo, se tiver."></textarea>
+          </div>
+          <p class="form-note">Prefere enviar fotos ou um arquivo 3D? Pode mandar direto pelo WhatsApp depois de enviar este formulário.</p>
+          <button type="submit" class="btn btn-primary form-submit">Enviar pedido de orçamento</button>
+        </div>
+        <div class="form-success" id="formSuccess">Recebemos seu pedido! Retornamos em breve pelo contato informado.</div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="brand">
+        <img src="images/logo-full.png" alt="Braido Lab 3D" class="brand-logo-img brand-logo-img-sm">
+      </div>
+      <div class="footer-links">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#portfolio">Portfólio</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#orcamento">Orçamento</a>
+      </div>
+      <!-- troque os href="#" pelos links reais assim que as contas estiverem prontas -->
+      <div class="footer-social">
+        <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c0 2.5 2 4.5 4.5 4.5"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M11 9.5l4 2.5-4 2.5z" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 8h-2a2 2 0 0 0-2 2v2H9v3h2v6h3v-6h2.2l.8-3H14v-1.5A.5.5 0 0 1 14.5 8H15z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-sign">
+      ; BRAIDO LAB 3D<br>
+      ; peças sob encomenda para todo o Brasil, desde [ANO]<br>
+      ; © <span id="year"></span> — todos os direitos reservados
+    </div>
+  </div>
+</footer>
+
+<a href="#orcamento" class="float-cta" aria-label="Pedir orçamento rápido">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Menu mobile
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Catálogo e Portfólio: montados a partir de data/catalogo.json e data/portfolio.json
+  // Edite esses arquivos pelo painel em /admin — o site atualiza sozinho.
+  function gradientClass(i){ return ['g1','g2','g3','g4','g5','g6'][i % 6]; }
+
+  function escapeHtml(str){
+    return String(str || '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function catalogCard(item, i){
+    const hasImg = item.image && item.image.trim() !== '';
+    const visual = hasImg
+      ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy">`
+      : `<span class="tag">Foto em breve</span>`;
+    const badge = item.badge ? `<span class="badge">${escapeHtml(item.badge)}</span>` : '';
+    const gClass = hasImg ? '' : gradientClass(i);
+    return `
+      <div class="card plate reveal in">
+        <div class="cat-visual ${gClass}">
+          ${badge}
+          ${visual}
+        </div>
+        <div class="card-body">
+          <h3>${escapeHtml(item.title)}</h3>
+          <p class="desc">${escapeHtml(item.description)}</p>
+          <div class="card-foot">
+            <span class="price">${escapeHtml(item.price)}</span>
+            <a href="#orcamento" class="card-link">Consultar</a>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function portfolioCard(item, i){
+    const hasImg = item.image && item.image.trim() !== '';
+    const visual = hasImg
+      ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" loading="lazy">`
+      : `<span class="tag">Foto em breve</span>`;
+    const gClass = hasImg ? '' : gradientClass(i);
+    return `
+      <div class="port-item plate reveal in">
+        <div class="port-visual ${gClass}">${visual}</div>
+        <div class="port-info">
+          <span class="port-tag">${escapeHtml((item.title || '').toUpperCase())}</span>
+          <p class="port-cap">${escapeHtml(item.caption)}</p>
+        </div>
+      </div>`;
+  }
+
+  Promise.all([
+    fetch('data/catalogo.json').then(r => r.json()).catch(() => ({ items: [] })),
+    fetch('data/portfolio.json').then(r => r.json()).catch(() => ({ items: [] }))
+  ]).then(([catalogo, portfolio]) => {
+    const catGrid = document.getElementById('catalogo-grid');
+    const portGrid = document.getElementById('portfolio-grid');
+    if (catGrid) catGrid.innerHTML = (catalogo.items || []).map(catalogCard).join('');
+    if (portGrid) portGrid.innerHTML = (portfolio.items || []).map(portfolioCard).join('');
+  });
+
+  // Envio do formulário via Netlify Forms (AJAX), sem sair da página
+  const form = document.getElementById('quoteForm');
+  const success = document.getElementById('formSuccess');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    })
+    .then(() => { success.classList.add('show'); form.reset(); })
+    .catch(() => { form.submit(); });
+  });
+</script>
+
+</body>
+</html>
