@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "title": "Pets",
+      "description": "Comedouros, bebedouros e acessórios sob medida para cães e gatos.",
+      "price": "a partir de R$ —",
+      "badge": "",
+      "image": "/images/uploads/bebedouro-pet.jpg"
+    },
+    {
+      "title": "Games & controles",
+      "description": "Suportes para controle, headset e acessórios para setup gamer.",
+      "price": "a partir de R$ —",
+      "badge": "Mais pedido",
+      "image": "/images/uploads/suporte-ps5-headset.jpg"
+    },
+    {
+      "title": "Decoração & presentes",
+      "description": "Vasos, luminárias, porta-treco e presentes com nome ou logo personalizados.",
+      "price": "a partir de R$ —",
+      "badge": "",
+      "image": ""
+    },
+    {
+      "title": "Organização",
+      "description": "Organizadores de banheiro, gaveta e bancada, pensados pro seu espaço.",
+      "price": "a partir de R$ —",
+      "badge": "",
+      "image": "/images/uploads/organizador-banheiro.jpg"
+    },
+    {
+      "title": "Protótipos técnicos",
+      "description": "Validação de encaixes e peças funcionais para makers e pequenas empresas.",
+      "price": "a partir de R$ —",
+      "badge": "",
+      "image": ""
+    },
+    {
+      "title": "Personalizados",
+      "description": "Tem um modelo 3D próprio ou uma ideia? Envie pra gente e a gente imprime.",
+      "price": "sob consulta",
+      "badge": "",
+      "image": ""
+    }
+  ]
+}

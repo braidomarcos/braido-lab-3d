@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "title": "Suporte controle + headset",
+      "caption": "PETG · impresso sob encomenda",
+      "image": "/images/uploads/suporte-ps5-headset.jpg"
+    },
+    {
+      "title": "Comedouro pet",
+      "caption": "PLA · acabamento fosco",
+      "image": "/images/uploads/comedouro-pet.jpg"
+    },
+    {
+      "title": "Bebedouro automático pet",
+      "caption": "PETG · encaixe para garrafa PET",
+      "image": "/images/uploads/bebedouro-pet.jpg"
+    },
+    {
+      "title": "Bebedouro — direto da impressora",
+      "caption": "Bambu Lab A1 · sem supports",
+      "image": "/images/uploads/bebedouro-pet-impressora.jpg"
+    },
+    {
+      "title": "Organizador de banheiro",
+      "caption": "PETG · modular",
+      "image": "/images/uploads/organizador-banheiro.jpg"
+    },
+    {
+      "title": "Fidget sensorial",
+      "caption": "PLA · peça articulada",
+      "image": "/images/uploads/fidget-sensorial.jpg"
+    }
+  ]
+}

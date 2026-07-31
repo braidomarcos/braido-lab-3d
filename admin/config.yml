@@ -1,0 +1,47 @@
+# ===================================================================
+# TROQUE a linha "repo:" abaixo pelo seu usuário/repositório do GitHub
+# Exemplo: se seu usuário é "joaobraido" e o repositório se chama
+# "braido-lab-3d", a linha deve ficar:  repo: joaobraido/braido-lab-3d
+# ===================================================================
+backend:
+  name: github
+  repo: SEU-USUARIO/SEU-REPOSITORIO
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "catalogo"
+    label: "Catálogo"
+    files:
+      - file: "data/catalogo.json"
+        label: "Itens do catálogo"
+        name: "catalogo"
+        fields:
+          - label: "Itens"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Descrição", name: "description", widget: "text" }
+              - { label: "Preço", name: "price", widget: "string" }
+              - { label: "Selo (opcional, ex. Mais pedido)", name: "badge", widget: "string", required: false }
+              - { label: "Foto", name: "image", widget: "image", required: false, choose_url: false }
+
+  - name: "portfolio"
+    label: "Portfólio"
+    files:
+      - file: "data/portfolio.json"
+        label: "Itens do portfólio"
+        name: "portfolio"
+        fields:
+          - label: "Itens"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Título", name: "title", widget: "string" }
+              - { label: "Legenda (material, tempo de impressão etc.)", name: "caption", widget: "string" }
+              - { label: "Foto", name: "image", widget: "image", required: false, choose_url: false }
